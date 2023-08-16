@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:video_player/video_player.dart';
 
 /// An exception thrown when the video player fails to load a video.
@@ -35,9 +35,19 @@ class VideoPlayerService {
   /// {@macro video_player_service}
   VideoPlayerService({
     required VideoPlayerOptions options,
-  })  : _options = options,
+  })  : _isServiceUnderTest = false,
+        _options = options,
         _controller = null;
 
+  /// A named constructor of [VideoPlayerService] for testing purposes.
+  @visibleForTesting
+  VideoPlayerService.test({
+    required VideoPlayerController controller,
+  })  : _isServiceUnderTest = true,
+        _options = VideoPlayerOptions(),
+        _controller = controller;
+
+  final bool _isServiceUnderTest;
   final VideoPlayerOptions _options;
   VideoPlayerController? _controller;
 
@@ -152,12 +162,14 @@ class VideoPlayerService {
   /// Loads a video from a [file].
   ///
   /// Throws a [LoadVideoException] if the video fails to load.
-  Future<void> loadFile(File file, {double volume = 0}) async {
+  Future<void> loadFile(File file, {double volume = 1.0}) async {
     try {
-      _controller = VideoPlayerController.file(
-        file,
-        videoPlayerOptions: _options,
-      );
+      if (!_isServiceUnderTest) {
+        _controller = VideoPlayerController.file(
+          file,
+          videoPlayerOptions: _options,
+        );
+      }
 
       await _controller!.initialize();
       await _controller!.setVolume(volume);
