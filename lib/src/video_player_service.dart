@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
@@ -56,8 +57,13 @@ class VideoPlayerService {
   bool get isPlaying {
     try {
       return _controller!.value.isPlaying;
-    } catch (_) {
-      log('Could not get playing status!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get playing status!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
@@ -66,8 +72,13 @@ class VideoPlayerService {
   Duration get position {
     try {
       return _controller!.value.position;
-    } catch (_) {
-      log('Could not get position!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get position!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return Duration.zero;
     }
   }
@@ -78,8 +89,13 @@ class VideoPlayerService {
   Duration get duration {
     try {
       return _controller!.value.duration;
-    } catch (_) {
-      log('Could not get duration!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get duration!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return Duration.zero;
     }
   }
@@ -88,8 +104,13 @@ class VideoPlayerService {
   double get playbackSpeed {
     try {
       return _controller!.value.playbackSpeed;
-    } catch (_) {
-      log('Could not get playback speed!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get playback speed!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return 1;
     }
   }
@@ -100,8 +121,13 @@ class VideoPlayerService {
   double get height {
     try {
       return _controller!.value.size.height;
-    } catch (_) {
-      log('Could not get height!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get height!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return 0;
     }
   }
@@ -112,8 +138,13 @@ class VideoPlayerService {
   double get width {
     try {
       return _controller!.value.size.width;
-    } catch (_) {
-      log('Could not get width!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get width!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return 0;
     }
   }
@@ -130,8 +161,13 @@ class VideoPlayerService {
 
       await _controller!.initialize();
       await _controller!.setVolume(volume);
-    } catch (_) {
-      log('Load file error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not load file!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw LoadVideoException();
     }
   }
@@ -140,8 +176,13 @@ class VideoPlayerService {
   Future<void> dispose() async {
     try {
       await _controller!.dispose();
-    } catch (_) {
-      log('Dispose error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not dispose controller!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 
@@ -151,8 +192,13 @@ class VideoPlayerService {
   Future<void> play() async {
     try {
       await _controller!.play();
-    } catch (_) {
-      log('Play error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not play the video!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw PlayVideoException();
     }
   }
@@ -163,8 +209,13 @@ class VideoPlayerService {
   Future<void> pause() async {
     try {
       await _controller!.pause();
-    } catch (_) {
-      log('Pause error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not pause the video!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw PauseVideoException();
     }
   }
@@ -175,8 +226,13 @@ class VideoPlayerService {
   Future<void> setPlaybackSpeed(double speed) async {
     try {
       await _controller!.setPlaybackSpeed(speed);
-    } catch (_) {
-      log('Set playback speed error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not set playback speed!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw SetVideoPlaybackSpeedException();
     }
   }
@@ -187,8 +243,13 @@ class VideoPlayerService {
   Future<void> seekTo(Duration position) async {
     try {
       await _controller!.seekTo(position);
-    } catch (_) {
-      log('Seek error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not seek to the position!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw SeekVideoPositionException();
     }
   }
@@ -197,8 +258,13 @@ class VideoPlayerService {
   void addListener(VoidCallback listener) {
     try {
       _controller!.addListener(listener);
-    } catch (_) {
-      log('Add listener error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not add listener!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 
@@ -206,8 +272,13 @@ class VideoPlayerService {
   void removeListener(VoidCallback listener) {
     try {
       _controller!.removeListener(listener);
-    } catch (_) {
-      log('Remove listener error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not remove listener!',
+        name: '$runtimeType',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 }
