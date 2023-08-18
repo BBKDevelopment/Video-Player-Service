@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -70,7 +69,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not get playing status!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -79,13 +78,15 @@ class VideoPlayerService {
   }
 
   /// The current position of the video.
+  ///
+  /// Returns [Duration.zero] if the video has not been initialized.
   Duration get position {
     try {
       return _controller!.value.position;
     } catch (error, stackTrace) {
       log(
         'Could not get position!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -102,7 +103,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not get duration!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -117,7 +118,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not get playback speed!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -134,7 +135,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not get height!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -151,7 +152,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not get width!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -176,7 +177,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not load file!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -191,7 +192,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not dispose controller!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -207,7 +208,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not play the video!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -224,7 +225,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not pause the video!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -241,7 +242,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not set playback speed!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -258,7 +259,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not seek to the position!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -273,7 +274,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not add listener!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
@@ -287,7 +288,7 @@ class VideoPlayerService {
     } catch (error, stackTrace) {
       log(
         'Could not remove listener!',
-        name: '$runtimeType',
+        name: '$VideoPlayerService',
         error: error,
         stackTrace: stackTrace,
       );
