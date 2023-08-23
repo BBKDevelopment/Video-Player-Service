@@ -63,6 +63,8 @@ class VideoPlayerService {
   bool get isVideoPlayerReady => _controller != null;
 
   /// The current status of the video player.
+  ///
+  /// Returns `false` if the video has not been initialized.
   bool get isPlaying {
     try {
       return _controller!.value.isPlaying;
@@ -112,6 +114,8 @@ class VideoPlayerService {
   }
 
   /// The current playback speed of the video.
+  ///
+  /// Returns `1` if the video has not been initialized.
   double get playbackSpeed {
     try {
       return _controller!.value.playbackSpeed;
