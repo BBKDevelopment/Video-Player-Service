@@ -1,10 +1,16 @@
-# Video Player Service
+# <p align="center">Video Player Service</p>
 
+<div align="center">
+
+[![video_player_service][build_status_badge]][workflow_link]
+![coverage][coverage_badge]
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
-[![License: MIT][license_badge]][license_link]
+[![License: BSD-3-Clause][license_badge]][license_link]
 
-A Very Good Project created by Very Good CLI.
+</div>
+
+This service wraps the [video_player][video_player_link] and provides secure usage of the plugin by handling exceptions.
 
 ## Installation 💻
 
@@ -15,6 +21,12 @@ Add `video_player_service` to your `pubspec.yaml`:
 ```yaml
 dependencies:
   video_player_service:
+
+dependencies:
+  video_player_service:
+    git:
+      url: https://github.com/BBKDevelopment/Video-Player-Service.git
+      ref: v1.0.0
 ```
 
 Install it:
@@ -57,10 +69,14 @@ genhtml coverage/lcov.info -o coverage/
 open coverage/index.html
 ```
 
+[video_player_link]: https://github.com/flutter/packages/tree/main/packages/video_player/video_player
+[workflow_link]: https://github.com/BBKDevelopment/Video-Player-Service/actions/workflows/main.yaml
+[build_status_badge]: https://github.com/BBKDevelopment/Video-Player-Service/actions/workflows/main.yaml/badge.svg
+[coverage_badge]: coverage_badge.svg
 [flutter_install_link]: https://docs.flutter.dev/get-started/install
 [github_actions_link]: https://docs.github.com/en/actions/learn-github-actions
-[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license_link]: https://opensource.org/licenses/MIT
+[license_badge]: https://img.shields.io/badge/license-BSD%203%E2%80%93Clause-blue.svg
+[license_link]: https://opensource.org/licenses/bsd-3-clause
 [logo_black]: https://raw.githubusercontent.com/VGVentures/very_good_brand/main/styles/README/vgv_logo_black.png#gh-light-mode-only
 [logo_white]: https://raw.githubusercontent.com/VGVentures/very_good_brand/main/styles/README/vgv_logo_white.png#gh-dark-mode-only
 [mason_link]: https://github.com/felangel/mason
