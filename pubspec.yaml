@@ -1,6 +1,6 @@
 name: video_player_service
 description: Video Player Service
-version: 0.1.0+1
+version: 1.0.0
 publish_to: none
 
 environment:
