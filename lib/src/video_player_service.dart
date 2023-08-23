@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:video_player/video_player.dart';
 
 /// An exception thrown when the video player fails to load a video.
@@ -34,9 +34,19 @@ class VideoPlayerService {
   /// {@macro video_player_service}
   VideoPlayerService({
     required VideoPlayerOptions options,
-  })  : _options = options,
+  })  : _isServiceUnderTest = false,
+        _options = options,
         _controller = null;
 
+  /// A named constructor of [VideoPlayerService] for testing purposes.
+  @visibleForTesting
+  VideoPlayerService.test({
+    required VideoPlayerController controller,
+  })  : _isServiceUnderTest = true,
+        _options = VideoPlayerOptions(),
+        _controller = controller;
+
+  final bool _isServiceUnderTest;
   final VideoPlayerOptions _options;
   VideoPlayerController? _controller;
 
@@ -50,24 +60,38 @@ class VideoPlayerService {
   ///
   /// Returns `true` if the video player is loaded and the controller is not
   /// equal to null.
-  bool get isVideoPlayerReady => _controller != null;
+  bool get isReady => _controller != null;
 
   /// The current status of the video player.
+  ///
+  /// Returns `false` if the video has not been initialized.
   bool get isPlaying {
     try {
       return _controller!.value.isPlaying;
-    } catch (_) {
-      log('Could not get playing status!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get playing status!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
 
   /// The current position of the video.
+  ///
+  /// Returns [Duration.zero] if the video has not been initialized.
   Duration get position {
     try {
       return _controller!.value.position;
-    } catch (_) {
-      log('Could not get position!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get position!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return Duration.zero;
     }
   }
@@ -78,18 +102,30 @@ class VideoPlayerService {
   Duration get duration {
     try {
       return _controller!.value.duration;
-    } catch (_) {
-      log('Could not get duration!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get duration!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return Duration.zero;
     }
   }
 
   /// The current playback speed of the video.
+  ///
+  /// Returns `1` if the video has not been initialized.
   double get playbackSpeed {
     try {
       return _controller!.value.playbackSpeed;
-    } catch (_) {
-      log('Could not get playback speed!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get playback speed!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return 1;
     }
   }
@@ -100,8 +136,13 @@ class VideoPlayerService {
   double get height {
     try {
       return _controller!.value.size.height;
-    } catch (_) {
-      log('Could not get height!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get height!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return 0;
     }
   }
@@ -112,8 +153,13 @@ class VideoPlayerService {
   double get width {
     try {
       return _controller!.value.size.width;
-    } catch (_) {
-      log('Could not get width!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not get width!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       return 0;
     }
   }
@@ -121,17 +167,24 @@ class VideoPlayerService {
   /// Loads a video from a [file].
   ///
   /// Throws a [LoadVideoException] if the video fails to load.
-  Future<void> loadFile(File file, {double volume = 0}) async {
+  Future<void> loadFile(File file, {double volume = 1.0}) async {
     try {
-      _controller = VideoPlayerController.file(
-        file,
-        videoPlayerOptions: _options,
-      );
+      if (!_isServiceUnderTest) {
+        _controller = VideoPlayerController.file(
+          file,
+          videoPlayerOptions: _options,
+        );
+      }
 
       await _controller!.initialize();
       await _controller!.setVolume(volume);
-    } catch (_) {
-      log('Load file error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not load file!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw LoadVideoException();
     }
   }
@@ -140,8 +193,13 @@ class VideoPlayerService {
   Future<void> dispose() async {
     try {
       await _controller!.dispose();
-    } catch (_) {
-      log('Dispose error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not dispose controller!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 
@@ -151,8 +209,13 @@ class VideoPlayerService {
   Future<void> play() async {
     try {
       await _controller!.play();
-    } catch (_) {
-      log('Play error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not play the video!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw PlayVideoException();
     }
   }
@@ -163,8 +226,13 @@ class VideoPlayerService {
   Future<void> pause() async {
     try {
       await _controller!.pause();
-    } catch (_) {
-      log('Pause error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not pause the video!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw PauseVideoException();
     }
   }
@@ -175,8 +243,13 @@ class VideoPlayerService {
   Future<void> setPlaybackSpeed(double speed) async {
     try {
       await _controller!.setPlaybackSpeed(speed);
-    } catch (_) {
-      log('Set playback speed error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not set playback speed!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw SetVideoPlaybackSpeedException();
     }
   }
@@ -187,8 +260,13 @@ class VideoPlayerService {
   Future<void> seekTo(Duration position) async {
     try {
       await _controller!.seekTo(position);
-    } catch (_) {
-      log('Seek error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not seek to the position!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
       throw SeekVideoPositionException();
     }
   }
@@ -197,8 +275,13 @@ class VideoPlayerService {
   void addListener(VoidCallback listener) {
     try {
       _controller!.addListener(listener);
-    } catch (_) {
-      log('Add listener error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not add listener!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 
@@ -206,8 +289,13 @@ class VideoPlayerService {
   void removeListener(VoidCallback listener) {
     try {
       _controller!.removeListener(listener);
-    } catch (_) {
-      log('Remove listener error!', name: 'VideoPlayerService');
+    } catch (error, stackTrace) {
+      log(
+        'Could not remove listener!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 }
