@@ -60,7 +60,7 @@ class VideoPlayerService {
   ///
   /// Returns `true` if the video player is loaded and the controller is not
   /// equal to null.
-  bool get isVideoPlayerReady => _controller != null;
+  bool get isReady => _controller != null;
 
   /// The current status of the video player.
   ///

@@ -28,7 +28,7 @@ void main() {
     });
 
     test('can provide status of the video player', () {
-      expect(sut.isVideoPlayerReady, false);
+      expect(sut.isReady, false);
     });
 
     test('can provide current status of the video player', () {
