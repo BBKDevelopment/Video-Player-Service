@@ -192,7 +192,7 @@ class VideoPlayerService {
   /// Disposes the [VideoPlayerController].
   Future<void> dispose() async {
     try {
-      await _controller!.dispose();
+      await _controller?.dispose();
     } catch (error, stackTrace) {
       log(
         'Could not dispose controller!',
