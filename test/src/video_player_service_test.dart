@@ -81,6 +81,17 @@ void main() {
       expect(sut.dispose(), isA<Future<void>>());
     });
 
+    test('can log the issue when could not dispose the video player controller',
+        () {
+      final controller = _MockVideoPlayerController();
+      final videoPlayerService = VideoPlayerService.test(
+        controller: controller,
+      );
+
+      when(controller.dispose).thenThrow(Exception());
+      expect(videoPlayerService.dispose(), isA<Future<void>>());
+    });
+
     test('can throw PlayVideoException while trying to play a video', () {
       expect(sut.play(), throwsA(isA<PlayVideoException>()));
     });
