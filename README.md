@@ -21,9 +21,6 @@ Add `video_player_service` to your `pubspec.yaml`:
 ```yaml
 dependencies:
   video_player_service:
-
-dependencies:
-  video_player_service:
     git:
       url: https://github.com/BBKDevelopment/Video-Player-Service.git
       ref: v1.0.0
