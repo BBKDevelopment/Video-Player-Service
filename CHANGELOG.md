@@ -1,3 +1,9 @@
+## 1.2.0
+
+* feat: add volume set feature (#8)
+* feat: upgrade `video_player` version to `2.8.6`
+* docs: update `README.md`
+
 ## 1.1.0
 
 * build: update minimum supported SDK version to Flutter 3.19/Dart 3.3
