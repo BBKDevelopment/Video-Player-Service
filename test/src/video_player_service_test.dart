@@ -109,6 +109,13 @@ void main() {
       );
     });
 
+    test('can throw SetVolumeException while setting the volume', () {
+      expect(
+        sut.setVolume(1),
+        throwsA(isA<SetVolumeException>()),
+      );
+    });
+
     test(
         'can throw SeekVideoPositionException while trying to seek the video '
         'position', () {

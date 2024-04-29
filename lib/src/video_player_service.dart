@@ -3,21 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:video_player/video_player.dart';
-
-/// An exception thrown when the video player fails to load a video.
-class LoadVideoException implements Exception {}
-
-/// An exception thrown when the video player fails to play a video.
-class PlayVideoException implements Exception {}
-
-/// An exception thrown when the video player fails to pause a video.
-class PauseVideoException implements Exception {}
-
-/// An exception thrown when the video player fails to set playback speed.
-class SetVideoPlaybackSpeedException implements Exception {}
-
-/// An exception thrown when the video player fails to seek to a position.
-class SeekVideoPositionException implements Exception {}
+import 'package:video_player_service/video_player_service.dart';
 
 /// {@template video_player_service}
 /// A service that provides video player functionality.
@@ -185,7 +171,7 @@ class VideoPlayerService {
         error: error,
         stackTrace: stackTrace,
       );
-      throw LoadVideoException();
+      throw const LoadVideoException();
     }
   }
 
@@ -216,7 +202,7 @@ class VideoPlayerService {
         error: error,
         stackTrace: stackTrace,
       );
-      throw PlayVideoException();
+      throw const PlayVideoException();
     }
   }
 
@@ -233,7 +219,7 @@ class VideoPlayerService {
         error: error,
         stackTrace: stackTrace,
       );
-      throw PauseVideoException();
+      throw const PauseVideoException();
     }
   }
 
@@ -250,7 +236,24 @@ class VideoPlayerService {
         error: error,
         stackTrace: stackTrace,
       );
-      throw SetVideoPlaybackSpeedException();
+      throw const SetVideoPlaybackSpeedException();
+    }
+  }
+
+  /// Sets the volume of the video. The volume must be between 0.0 and 1.0.
+  ///
+  /// Throws a [SetVolumeException] if the video fails to set the volume.
+  Future<void> setVolume(double volume) async {
+    try {
+      await _controller!.setVolume(volume);
+    } catch (error, stackTrace) {
+      log(
+        'Could not set volume!',
+        name: '$VideoPlayerService',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      throw const SetVolumeException();
     }
   }
 
@@ -267,7 +270,7 @@ class VideoPlayerService {
         error: error,
         stackTrace: stackTrace,
       );
-      throw SeekVideoPositionException();
+      throw const SeekVideoPositionException();
     }
   }
 
@@ -288,7 +291,7 @@ class VideoPlayerService {
   /// Removes a listener from the video player.
   void removeListener(VoidCallback listener) {
     try {
-      _controller!.removeListener(listener);
+      _controller?.removeListener(listener);
     } catch (error, stackTrace) {
       log(
         'Could not remove listener!',

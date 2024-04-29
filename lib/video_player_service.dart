@@ -2,3 +2,4 @@
 library video_player_service;
 
 export 'src/video_player_service.dart';
+export 'src/video_player_service_exception.dart';
