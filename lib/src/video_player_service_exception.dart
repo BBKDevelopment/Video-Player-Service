@@ -1,3 +1,7 @@
+// Copyright 2024 BBK Development. All rights reserved.
+// Use of this source code is governed by a BSD 3-Clause-style license that can
+// be found in the LICENSE file.
+
 /// {@template video_player_service_exception}
 /// An exception thrown by the video player service.
 /// {@endtemplate}
