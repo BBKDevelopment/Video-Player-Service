@@ -9,7 +9,7 @@ sealed class VideoPlayerServiceException implements Exception {
 /// {@template load_video_exception}
 /// An exception thrown when the video player fails to load a video.
 /// {@endtemplate}
-class LoadVideoException implements VideoPlayerServiceException {
+class LoadVideoException extends VideoPlayerServiceException {
   /// {@macro load_video_exception}
   const LoadVideoException();
 }
@@ -17,7 +17,7 @@ class LoadVideoException implements VideoPlayerServiceException {
 /// {@template play_video_exception}
 /// An exception thrown when the video player fails to play a video.
 /// {@endtemplate}
-class PlayVideoException implements VideoPlayerServiceException {
+class PlayVideoException extends VideoPlayerServiceException {
   /// {@macro play_video_exception}
   const PlayVideoException();
 }
@@ -25,7 +25,7 @@ class PlayVideoException implements VideoPlayerServiceException {
 /// {@template pause_video_exception}
 /// An exception thrown when the video player fails to pause a video.
 /// {@endtemplate}
-class PauseVideoException implements VideoPlayerServiceException {
+class PauseVideoException extends VideoPlayerServiceException {
   /// {@macro pause_video_exception}
   const PauseVideoException();
 }
@@ -33,7 +33,7 @@ class PauseVideoException implements VideoPlayerServiceException {
 /// {@template set_video_volume_exception}
 /// An exception thrown when the video player fails to set playback speed.
 /// {@endtemplate}
-class SetVideoPlaybackSpeedException implements VideoPlayerServiceException {
+class SetVideoPlaybackSpeedException extends VideoPlayerServiceException {
   /// {@macro set_video_volume_exception}
   const SetVideoPlaybackSpeedException();
 }
@@ -41,7 +41,7 @@ class SetVideoPlaybackSpeedException implements VideoPlayerServiceException {
 /// {@template set_volume_exception}
 /// An exception thrown when the video player fails to set the volume.
 /// {@endtemplate}
-class SetVolumeException implements VideoPlayerServiceException {
+class SetVolumeException extends VideoPlayerServiceException {
   /// {@macro set_volume_exception}
   const SetVolumeException();
 }
@@ -49,7 +49,7 @@ class SetVolumeException implements VideoPlayerServiceException {
 /// {@template seek_video_position_exception}
 /// An exception thrown when the video player fails to seek to a position.
 /// {@endtemplate}
-class SeekVideoPositionException implements VideoPlayerServiceException {
+class SeekVideoPositionException extends VideoPlayerServiceException {
   /// {@macro seek_video_position_exception}
   const SeekVideoPositionException();
 }
