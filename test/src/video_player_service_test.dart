@@ -17,9 +17,15 @@ class _MockVideoPlayerController extends Mock
 
 void main() {
   late VideoPlayerService sut;
+  late VideoPlayerController controller;
 
   setUp(() {
-    sut = VideoPlayerService(options: VideoPlayerOptions());
+    controller = _MockVideoPlayerController();
+    sut = VideoPlayerService.test(controller: controller);
+  });
+
+  tearDown(() {
+    sut.dispose();
   });
 
   group('VideoPlayerService', () {
@@ -28,22 +34,25 @@ void main() {
     });
 
     test('can provide a controller', () {
-      expect(sut.controller, isNull);
+      expect(sut.controller, isNotNull);
     });
 
     test('can provide status of the video player', () {
-      expect(sut.isReady, false);
+      expect(sut.isReady, true);
     });
 
     test('can provide current status of the video player', () {
+      when(() => controller.value.isPlaying).thenThrow(Exception());
       expect(sut.isPlaying, false);
     });
 
     test('can provide current position of the video', () {
+      when(() => controller.value.position).thenThrow(Exception());
       expect(sut.position, Duration.zero);
     });
 
     test('can provide duration of the video', () {
+      when(() => controller.value.duration).thenThrow(Exception());
       expect(sut.duration, Duration.zero);
     });
 
@@ -60,23 +69,20 @@ void main() {
     });
 
     test('can load a video from file', () async {
-      final controller = _MockVideoPlayerController();
-      final videoPlayerService = VideoPlayerService.test(
-        controller: controller,
-      );
-
-      when(controller.initialize).thenAnswer((_) => Future.value());
-      when(() => controller.setVolume(any())).thenAnswer((_) => Future.value());
-
-      await videoPlayerService.loadFile(File(''));
-
+      when(() => controller.initialize()).thenAnswer(Future.value);
+      when(() => controller.setVolume(any())).thenAnswer(Future.value);
+      await sut.loadFile(File(''));
       verify(controller.initialize).called(1);
       verify(() => controller.setVolume(any())).called(1);
     });
 
     test('can throw LoadVideoException while loading a video from file', () {
+      final videoPlayerService = VideoPlayerService(
+        options: VideoPlayerOptions(),
+      );
+
       expect(
-        sut.loadFile(File('')),
+        videoPlayerService.loadFile(File('')),
         throwsA(isA<LoadVideoException>()),
       );
     });
@@ -87,13 +93,8 @@ void main() {
 
     test('can log the issue when could not dispose the video player controller',
         () {
-      final controller = _MockVideoPlayerController();
-      final videoPlayerService = VideoPlayerService.test(
-        controller: controller,
-      );
-
       when(controller.dispose).thenThrow(Exception());
-      expect(videoPlayerService.dispose(), isA<Future<void>>());
+      expect(sut.dispose(), isA<Future<void>>());
     });
 
     test('can throw PlayVideoException while trying to play a video', () {
