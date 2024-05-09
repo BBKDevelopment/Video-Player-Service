@@ -57,7 +57,7 @@ class VideoPlayerService {
   /// Returns `false` if the video has not been initialized.
   bool get isPlaying {
     try {
-      return _controller!.value.isPlaying;
+      return _controller?.value.isPlaying ?? false;
     } catch (error, stackTrace) {
       log(
         'Could not get playing status!',
@@ -74,7 +74,7 @@ class VideoPlayerService {
   /// Returns [Duration.zero] if the video has not been initialized.
   Duration get position {
     try {
-      return _controller!.value.position;
+      return _controller?.value.position ?? Duration.zero;
     } catch (error, stackTrace) {
       log(
         'Could not get position!',
@@ -91,7 +91,7 @@ class VideoPlayerService {
   /// Returns [Duration.zero] if the video has not been initialized.
   Duration get duration {
     try {
-      return _controller!.value.duration;
+      return _controller?.value.duration ?? Duration.zero;
     } catch (error, stackTrace) {
       log(
         'Could not get duration!',
@@ -108,7 +108,7 @@ class VideoPlayerService {
   /// Returns `1` if the video has not been initialized.
   double get playbackSpeed {
     try {
-      return _controller!.value.playbackSpeed;
+      return _controller?.value.playbackSpeed ?? 1;
     } catch (error, stackTrace) {
       log(
         'Could not get playback speed!',
@@ -125,7 +125,7 @@ class VideoPlayerService {
   /// Returns `0` if the video has not been initialized.
   double get height {
     try {
-      return _controller!.value.size.height;
+      return _controller?.value.size.height ?? 0;
     } catch (error, stackTrace) {
       log(
         'Could not get height!',
@@ -142,7 +142,7 @@ class VideoPlayerService {
   /// Returns `0` if the video has not been initialized.
   double get width {
     try {
-      return _controller!.value.size.width;
+      return _controller?.value.size.width ?? 0;
     } catch (error, stackTrace) {
       log(
         'Could not get width!',
@@ -166,8 +166,8 @@ class VideoPlayerService {
         );
       }
 
-      await _controller!.initialize();
-      await _controller!.setVolume(volume);
+      await _controller?.initialize();
+      await _controller?.setVolume(volume);
     } catch (error, stackTrace) {
       log(
         'Could not load file!',
@@ -198,7 +198,7 @@ class VideoPlayerService {
   /// Throws a [PlayVideoException] if the video fails to play.
   Future<void> play() async {
     try {
-      await _controller!.play();
+      await _controller?.play();
     } catch (error, stackTrace) {
       log(
         'Could not play the video!',
@@ -215,7 +215,7 @@ class VideoPlayerService {
   /// Throws a [PauseVideoException] if the video fails to pause.
   Future<void> pause() async {
     try {
-      await _controller!.pause();
+      await _controller?.pause();
     } catch (error, stackTrace) {
       log(
         'Could not pause the video!',
@@ -232,7 +232,7 @@ class VideoPlayerService {
   /// Throws a [SetVideoPlaybackSpeedException] if could not set playback speed.
   Future<void> setPlaybackSpeed(double speed) async {
     try {
-      await _controller!.setPlaybackSpeed(speed);
+      await _controller?.setPlaybackSpeed(speed);
     } catch (error, stackTrace) {
       log(
         'Could not set playback speed!',
@@ -249,7 +249,7 @@ class VideoPlayerService {
   /// Throws a [SetVolumeException] if the video fails to set the volume.
   Future<void> setVolume(double volume) async {
     try {
-      await _controller!.setVolume(volume);
+      await _controller?.setVolume(volume);
     } catch (error, stackTrace) {
       log(
         'Could not set volume!',
@@ -266,7 +266,7 @@ class VideoPlayerService {
   /// Throws a [SeekVideoPositionException] if the video fails to seek.
   Future<void> seekTo(Duration position) async {
     try {
-      await _controller!.seekTo(position);
+      await _controller?.seekTo(position);
     } catch (error, stackTrace) {
       log(
         'Could not seek to the position!',
@@ -281,7 +281,7 @@ class VideoPlayerService {
   /// Adds a listener to the video player.
   void addListener(VoidCallback listener) {
     try {
-      _controller!.addListener(listener);
+      _controller?.addListener(listener);
     } catch (error, stackTrace) {
       log(
         'Could not add listener!',
