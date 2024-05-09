@@ -23,7 +23,7 @@ dependencies:
   video_player_service:
     git:
       url: https://github.com/BBKDevelopment/Video-Player-Service.git
-      ref: v1.2.0
+      ref: v1.2.1
 ```
 
 Install it:

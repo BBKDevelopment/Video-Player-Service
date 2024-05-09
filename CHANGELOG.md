@@ -1,3 +1,8 @@
+## 1.2.1
+
+* refactor: remove null check enforcements (#10)
+* docs: update `README.md`
+
 ## 1.2.0
 
 * feat: add volume set feature (#8)
